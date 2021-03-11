@@ -5,6 +5,8 @@ const templateTag = require("html-template-tag");
 const viewFuncs = require("./views/index");
 const layout = require("./views/layout");
 const { db, Page, User } = require("./models");
+const wikiRouter = require('./routes/wiki')
+const usersRouter = require('./routes/users')
 
 db.authenticate().then(() => {
   console.log("connected to the database");
@@ -16,8 +18,11 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json()); // raw json req.body
 app.use(express.urlencoded({ extended: false })); // x-www-form-urlencoded req.body
 
+app.use('/wiki', wikiRouter)
+app.use('/users', usersRouter)
+
 app.get("/", (req, res, next) => {
-  res.send(layout("Gabe"));
+  res.redirect('wiki');
 });
 
 const init = async () => {

@@ -10,10 +10,6 @@ const Page = db.define("page", {
   slug: {
     type: Sequelize.STRING,
     allowNull: false,
-    // defaultValue: (this.title) => {
-    //   let urlTitle = this.title;
-    //   return urlTitle.split(" ").join("-");
-    // },
   },
   content: {
     type: Sequelize.TEXT,
@@ -43,5 +39,14 @@ const User = db.define("user", {
 // };
 
 // connect();
+
+function generateSlug (title) {
+  const slug = title.replace(/\s+/g, '_').replace(/\W/g, '')
+  return slug;
+}
+
+Page.beforeValidate ((page) => {
+  page.slug = generateSlug(page.title)
+})
 
 module.exports = { db, Page, User };
