@@ -1,6 +1,9 @@
 const { STRING } = require("sequelize");
 const Sequelize = require("sequelize");
-const db = new Sequelize("postgres://localhost:5432/wikistack");
+const db = new Sequelize("postgres://localhost:5432/wikistack", {
+  logging: false
+});
+
 
 const Page = db.define("page", {
   title: {
@@ -34,11 +37,8 @@ const User = db.define("user", {
   },
 });
 
-// const connect = async () => {
-//   await db.sync();
-// };
-
-// connect();
+Page.belongsTo(User, { as: 'author' })
+User.hasMany(Page)
 
 function generateSlug (title) {
   const slug = title.replace(/\s+/g, '_').replace(/\W/g, '')
@@ -49,4 +49,6 @@ Page.beforeValidate ((page) => {
   page.slug = generateSlug(page.title)
 })
 
+
 module.exports = { db, Page, User };
+

@@ -26,13 +26,14 @@ app.get("/", (req, res, next) => {
 });
 
 const init = async () => {
-  await db.sync({ force: true });
+  await db.sync({force: false});
 
   const PORT = 3000;
-
   app.listen(PORT, () => {
     console.log("Listening at http://localhost:3000");
   });
+
 };
+
 
 init();

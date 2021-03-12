@@ -7,9 +7,9 @@ module.exports = () => layout(html`
   <form method="POST" action="/wiki/">
     
     <div id='form-group'>
-      <label for="author-name" class="col-sm-2 control-label">Author Name</label>
+      <label for="author" class="col-sm-2 control-label">Author Name</label>
       <div class="col-sm-10">
-        <input id="author-name" name="author-name" type="text" class="form-control"/>
+        <input id="author" name="author" type="text" class="form-control"/>
       </div>
     </div>
     
@@ -50,3 +50,4 @@ module.exports = () => layout(html`
   
   </form>
 `);
+//when you hit the submit button, what triggers router.post in ../routes/wiki?
